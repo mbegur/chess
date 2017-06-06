@@ -9,15 +9,24 @@ class Display
   end
 
   def render
-    @board.grid.map do |row|
-      puts row.join("|")
-
+    # @board.grid.map do |row|
+    #   puts row.join("|")
+    # end
+    system('clear')
+    @board.grid.each_index do |row|
+      puts
+      @board.grid[row].each_index do |col|
+        if [row, col] == @cursor.cursor_pos
+          print @board[[row, col]].colorize(background: :light_green)
+        else
+          print @board[[row, col]].colorize(background: :light_cyan)
+        end
+      end
     end
-
   end
 
   def test_cursor
-    5.times do
+    50.times do
       render
       p @cursor.get_input
     end
