@@ -1,10 +1,11 @@
 require_relative 'piece'
+require_relative 'cursor'
 
 class Board
   attr_reader :grid
 
   def initialize
-    @grid = Array.new(8) { Array.new(8) { [] } }
+    @grid = Array.new(8) { Array.new(8) { NullPiece.new(" ").symbol } }
   end
 
   def [](pos)
@@ -33,4 +34,8 @@ class Board
 
   end
 
+  def in_bounds?(pos)
+    return false unless (0...8).include?(pos[0]) && (0...8).include?(pos[1])
+    true
+  end
 end
