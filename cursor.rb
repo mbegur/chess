@@ -78,7 +78,13 @@ class Cursor
   def handle_key(key)
     case key
     when :return, :space
-      return @cursor_pos
+      if @selected.nil?
+
+        @selected = @board[@cursor_pos]
+      else
+        board.move_piece(@selected.current_position, @cursor_pos)
+        @selected = nil
+      end 
     when :left, :right, :up, :down
       update_pos(MOVES[key])
     when :ctrl_c
@@ -93,5 +99,6 @@ class Cursor
     else
       @cursor_pos
     end
+    nil
   end
 end

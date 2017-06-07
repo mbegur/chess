@@ -1,5 +1,7 @@
 require "colorize"
 require_relative "cursor"
+require_relative "board"
+
 class Display
  attr_reader :board, :cursor
 
@@ -12,14 +14,13 @@ class Display
     # @board.grid.map do |row|
     #   puts row.join("|")
     # end
-    system('clear')
     @board.grid.each_index do |row|
       puts
       @board.grid[row].each_index do |col|
         if [row, col] == @cursor.cursor_pos
-          print @board[[row, col]].colorize(background: :light_green)
+          print @board[[row, col]].to_s.colorize(background: :light_green)
         else
-          print @board[[row, col]].colorize(background: :light_cyan)
+          print @board[[row, col]].to_s.colorize(background: :light_cyan)
         end
       end
     end
@@ -33,3 +34,5 @@ class Display
   end
 
 end
+
+Display.new(Board.new).test_cursor
